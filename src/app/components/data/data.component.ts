@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms'; // Para trabajar con formularios  y validaciones desde el data
+// Para trabajar con formularios  y validaciones desde el data
+import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 
 
 @Component({
@@ -17,7 +18,8 @@ export class DataComponent {
       nombre: 'diego',
       apellido: 'guzman'
     },
-    correo: 'difagume@gmail.com'
+    correo: 'difagume@gmail.com'//,
+    //pasatiempos: ['correr', 'dormir', 'comer']
   };
 
   constructor() {
@@ -34,11 +36,15 @@ export class DataComponent {
 
       }),
 
-      'correo': new FormControl('', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')])
+      'correo': new FormControl('', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]),
+
+      'pasatiempos': new FormArray([
+        new FormControl('correr', Validators.required)
+      ])
     });
 
     // Para cargar la información al formulario
-    this.forma.setValue(this.usuario);
+    // this.forma.setValue(this.usuario);
 
   }
 
@@ -67,6 +73,12 @@ export class DataComponent {
     this.forma.controls['nombrecompleto'].get('apellido').setValue('guzmán medrano');
     this.forma.controls['correo'].setValue('diegofabrixio@gmail.com'); */
 
+  }
+
+  agregarPasatiempo() {
+    (<FormArray>this.forma.controls['pasatiempos']).push(
+      new FormControl('', Validators.required)
+    );
   }
 
 }
