@@ -5,20 +5,21 @@
 <hr>
 <form [formGroup]="forma" (ngSubmit)="guardarCambios()">
 
-  <div>
+  <div formGroupName="nombrecompleto">
 
     <div class="form-group row">
       <label class="col-2 col-form-label">Nombre</label>
       <div class="col-8">
 
-        <input class="form-control" [ngClass]="{'is-invalid': (forma.get('nombre').errors?.required || forma.get('nombre').errors?.minlength) && forma.get('nombre').touched}"
+        <input class="form-control" [ngClass]="{'is-invalid': (forma.get('nombrecompleto.nombre').errors?.required || forma.get('nombrecompleto.nombre').errors?.minlength) && forma.get('nombrecompleto.nombre').touched}"
           type="text" placeholder="Nombre" formControlName="nombre">
 
-        <div *ngIf="forma.controls['nombre'].errors?.required" class="invalid-feedback">
+        <!-- <div *ngIf="forma.get('nombrecompleto.nombre').errors?.required" class="invalid-feedback"> -->
+        <div *ngIf="forma.controls['nombrecompleto'].controls['nombre'].errors?.required" class="invalid-feedback">
           El nombre es requerido.
         </div>
 
-        <div *ngIf="forma.controls['nombre'].errors?.minlength" class="invalid-feedback">
+        <div *ngIf="forma.get('nombrecompleto.nombre').errors?.minlength" class="invalid-feedback">
           Por lo menos 3 caracteres.
         </div>
       </div>
@@ -28,10 +29,10 @@
       <label class="col-2 col-form-label">Apellido</label>
       <div class="col-8">
 
-        <input class="form-control" [ngClass]="{'is-invalid': !forma.get('apellido').valid && forma.get('apellido').touched}" type="text"
-          placeholder="Apellido" formControlName="apellido">
+        <input class="form-control" [ngClass]="{'is-invalid': !forma.get('nombrecompleto.apellido').valid && forma.get('nombrecompleto.apellido').touched}"
+          type="text" placeholder="Apellido" formControlName="apellido">
 
-        <div *ngIf="!forma.controls['apellido'].valid" class="invalid-feedback">
+        <div *ngIf="!forma.controls['nombrecompleto'].controls['apellido'].valid" class="invalid-feedback">
           El apellido es requerido.
         </div>
       </div>
@@ -49,7 +50,8 @@
       <div *ngIf="forma.get('correo').errors?.required" class="invalid-feedback">
         El correo es requerido.
       </div>
-      <div *ngIf="forma.get('correo').errors?.pattern" class="invalid-feedback">
+      <!-- <div *ngIf="forma.get('correo').errors?.pattern" class="invalid-feedback"> -->
+      <div *ngIf="forma.controls['correo'].errors?.pattern" class="invalid-feedback">
         El correo no cumple el formato.
       </div>
     </div>
