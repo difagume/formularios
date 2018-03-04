@@ -11,14 +11,14 @@
       <label class="col-2 col-form-label">Nombre</label>
       <div class="col-8">
 
-        <input class="form-control" type="text" placeholder="Nombre" [(ngModel)]="usuario.nombre" name="nombre" required minlength="5"
-          #nombre="ngModel">
+        <input class="form-control" [ngClass]="{'is-invalid': (Nombre.errors?.required || Nombre.errors?.minlength) && Nombre.touched}"
+          type="text" placeholder="Nombre" [(ngModel)]="usuario.nombre" name="nombre" required minlength="5" #Nombre="ngModel">
 
-        <div *ngIf="nombre.errors?.required">
+        <div *ngIf="Nombre.errors?.required" class="invalid-feedback">
           El nombre es requerido.
         </div>
-        <div *ngIf="nombre.errors?.minlength">
-          Por lo menos {{ nombre.errors.minlength.requiredLength }} caracteres.
+        <div *ngIf="Nombre.errors?.minlength" class="invalid-feedback">
+          Por lo menos {{ Nombre.errors.minlength.requiredLength }} caracteres.
         </div>
 
       </div>
@@ -28,9 +28,10 @@
       <label class="col-2 col-form-label">Apellido</label>
       <div class="col-8">
 
-        <input class="form-control" type="text" placeholder="Apellido" [(ngModel)]="usuario.apellido" name="apellido" required #Apellido="ngModel">
+        <input class="form-control" [ngClass]="{'is-invalid': Apellido.errors?.required && Apellido.touched}" type="text" placeholder="Apellido"
+          [(ngModel)]="usuario.apellido" name="apellido" required #Apellido="ngModel">
 
-        <div *ngIf="Apellido.errors?.required">
+        <div *ngIf="Apellido.errors?.required" class="invalid-feedback">
           El apellido es requerido.
         </div>
 
@@ -43,13 +44,14 @@
     <label class="col-2 col-form-label">Correo</label>
     <div class="col-md-8">
 
-      <input class="form-control" type="email" placeholder="Correo electrónico" [(ngModel)]="usuario.correo" name="correo" required
-        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" #Correo="ngModel">
+      <input class="form-control" [ngClass]="{'is-invalid': (Correo.errors?.required || Correo.errors?.pattern) && Correo.touched}"
+        type="email" placeholder="Correo electrónico" [(ngModel)]="usuario.correo" name="correo" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+        #Correo="ngModel">
 
-      <div *ngIf="Correo.errors?.required">
+      <div *ngIf="Correo.errors?.required" class="invalid-feedback">
         El correo es requerido.
       </div>
-      <div *ngIf="Correo.errors?.pattern">
+      <div *ngIf="Correo.errors?.pattern" class="invalid-feedback">
         El correo no cumple el formato.
       </div>
 
@@ -61,7 +63,7 @@
   <div class="form-group row">
     <label class="col-2 col-form-label">&nbsp;</label>
     <div class="input-group col-md-8">
-      <button type="submit" class="btn btn-outline-primary">
+      <button type="submit" class="btn btn-outline-primary" [disabled]="forma.invalid">
         Guardar
       </button>
     </div>
