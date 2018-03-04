@@ -11,7 +11,16 @@
       <label class="col-2 col-form-label">Nombre</label>
       <div class="col-8">
 
-        <input class="form-control" type="text" placeholder="Nombre" formControlName="nombre">
+        <input class="form-control" [ngClass]="{'is-invalid': (forma.get('nombre').errors?.required || forma.get('nombre').errors?.minlength) && forma.get('nombre').touched}"
+          type="text" placeholder="Nombre" formControlName="nombre">
+
+        <div *ngIf="forma.controls['nombre'].errors?.required" class="invalid-feedback">
+          El nombre es requerido.
+        </div>
+
+        <div *ngIf="forma.controls['nombre'].errors?.minlength" class="invalid-feedback">
+          Por lo menos 3 caracteres.
+        </div>
       </div>
     </div>
 
@@ -19,7 +28,12 @@
       <label class="col-2 col-form-label">Apellido</label>
       <div class="col-8">
 
-        <input class="form-control" type="text" placeholder="Apellido" formControlName="apellido">
+        <input class="form-control" [ngClass]="{'is-invalid': !forma.get('apellido').valid && forma.get('apellido').touched}" type="text"
+          placeholder="Apellido" formControlName="apellido">
+
+        <div *ngIf="!forma.controls['apellido'].valid" class="invalid-feedback">
+          El apellido es requerido.
+        </div>
       </div>
     </div>
 
@@ -29,7 +43,15 @@
     <label class="col-2 col-form-label">Correo</label>
     <div class="col-md-8">
 
-      <input class="form-control" type="email" placeholder="Correo electrónico" formControlName="correo">
+      <input class="form-control" [ngClass]="{'is-invalid': (forma.get('correo').errors?.required || forma.get('correo').errors?.pattern) && forma.get('correo').touched}"
+        type="email" placeholder="Correo electrónico" formControlName="correo">
+
+      <div *ngIf="forma.get('correo').errors?.required" class="invalid-feedback">
+        El correo es requerido.
+      </div>
+      <div *ngIf="forma.get('correo').errors?.pattern" class="invalid-feedback">
+        El correo no cumple el formato.
+      </div>
     </div>
   </div>
 
