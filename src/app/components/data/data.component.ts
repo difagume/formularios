@@ -36,11 +36,37 @@ export class DataComponent {
 
       'correo': new FormControl('', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')])
     });
+
+    // Para cargar la información al formulario
+    this.forma.setValue(this.usuario);
+
   }
 
   guardarCambios() {
     console.log('forma:', this.forma);
     console.log('valores:', this.forma.value);
+
+    // Para resetear los campos (regresarlos al estado ng-pristine)
+
+    // Opción 1
+    this.forma.reset();
+
+    // Opción 2
+    /* this.forma.reset(
+      {
+        nombrecompleto: {
+          nombre: 'fabricio',
+          apellido: 'medrano'
+        },
+        correo: 'eldie@gmail.com'
+      }
+    ); */
+
+    // Opción 3
+    /* this.forma.controls['nombrecompleto'].get('nombre').setValue('diego fabricio');
+    this.forma.controls['nombrecompleto'].get('apellido').setValue('guzmán medrano');
+    this.forma.controls['correo'].setValue('diegofabrixio@gmail.com'); */
+
   }
 
 }
