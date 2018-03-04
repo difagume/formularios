@@ -11,7 +11,16 @@
       <label class="col-2 col-form-label">Nombre</label>
       <div class="col-8">
 
-        <input class="form-control" type="text" placeholder="Nombre" [(ngModel)]="usuario.nombre" name="nombre" required minlength="5">
+        <input class="form-control" type="text" placeholder="Nombre" [(ngModel)]="usuario.nombre" name="nombre" required minlength="5"
+          #nombre="ngModel">
+
+        <div *ngIf="nombre.errors?.required">
+          Este campo es requerido.
+        </div>
+        <div *ngIf="nombre.errors?.minlength">
+          Por lo menos {{ nombre.errors.minlength.requiredLength }} caracteres.
+        </div>
+
       </div>
     </div>
 
@@ -19,7 +28,7 @@
       <label class="col-2 col-form-label">Apellido</label>
       <div class="col-8">
 
-        <input class="form-control" type="text" placeholder="Apellido" [(ngModel)]="usuario.apellido" name="apellido">
+        <input class="form-control" type="text" placeholder="Apellido" [(ngModel)]="usuario.apellido" name="apellido" required>
       </div>
     </div>
 
@@ -29,7 +38,8 @@
     <label class="col-2 col-form-label">Correo</label>
     <div class="col-md-8">
 
-      <input class="form-control" type="email" placeholder="Correo electrónico" [(ngModel)]="usuario.correo" name="correo">
+      <input class="form-control" type="email" placeholder="Correo electrónico" [(ngModel)]="usuario.correo" name="correo" required
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
     </div>
   </div>
 
