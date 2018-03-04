@@ -15,7 +15,7 @@
           #nombre="ngModel">
 
         <div *ngIf="nombre.errors?.required">
-          Este campo es requerido.
+          El nombre es requerido.
         </div>
         <div *ngIf="nombre.errors?.minlength">
           Por lo menos {{ nombre.errors.minlength.requiredLength }} caracteres.
@@ -28,7 +28,12 @@
       <label class="col-2 col-form-label">Apellido</label>
       <div class="col-8">
 
-        <input class="form-control" type="text" placeholder="Apellido" [(ngModel)]="usuario.apellido" name="apellido" required>
+        <input class="form-control" type="text" placeholder="Apellido" [(ngModel)]="usuario.apellido" name="apellido" required #Apellido="ngModel">
+
+        <div *ngIf="Apellido.errors?.required">
+          El apellido es requerido.
+        </div>
+
       </div>
     </div>
 
@@ -39,7 +44,15 @@
     <div class="col-md-8">
 
       <input class="form-control" type="email" placeholder="Correo electrónico" [(ngModel)]="usuario.correo" name="correo" required
-        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" #Correo="ngModel">
+
+      <div *ngIf="Correo.errors?.required">
+        El correo es requerido.
+      </div>
+      <div *ngIf="Correo.errors?.pattern">
+        El correo no cumple el formato.
+      </div>
+
     </div>
   </div>
 
