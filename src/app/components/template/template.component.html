@@ -58,15 +58,72 @@
     </div>
   </div>
 
+  <div class="form-group row">
+    <label class="col-2 col-form-label">País</label>
+    <div class="col-md-8">
+
+      <select [(ngModel)]="usuario.pais" class="form-control" name="pais" required>
+
+        <option value="">Seleccione un país</option>
+        <option *ngFor="let pais of paises" [value]="pais.codigo">{{ pais.nombre }}</option>
+
+      </select>
+
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Género</label>
+    <div class="col-md-8">
+
+      <!-- CARGA DE RADIOS DE FORMA ESTÁTICA -->
+      <!-- <div class="form-check form-check-inline">
+        <input [(ngModel)]="usuario.genero" value="Hombre" class="form-check-input" type="radio" name="genero">
+        <label class="form-check-label">Hombre</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input [(ngModel)]="usuario.genero" value="Mujer" class="form-check-input" type="radio" name="genero">
+        <label class="form-check-label">Mujer</label>
+      </div> -->
+      <!-- ********************************** -->
+
+      <!-- CARGA DE RADIOS DE FORMA DINAMICA -->
+      <div *ngFor="let g of generos" class="form-check form-check-inline">
+        <input [(ngModel)]="usuario.genero" [value]="g" class="form-check-input" type="radio" name="genero" required>
+        <label class="form-check-label">{{ g }}</label>
+      </div>
+      <!-- ********************************** -->
+
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Acepta</label>
+    <div class="col-md-8">
+
+      <div class="form-check">
+        <input [(ngModel)]="usuario.acepta" name="acepta" required class="form-check-input" type="checkbox">
+        <label class="form-check-label" for="defaultCheck1">
+          Acepta las condiciones.
+        </label>
+      </div>
+
+    </div>
+  </div>
 
 
   <div class="form-group row">
     <label class="col-2 col-form-label">&nbsp;</label>
     <div class="input-group col-md-8">
       <button type="submit" class="btn btn-outline-primary" [disabled]="forma.invalid">
+        <!-- <button type="submit" class="btn btn-outline-primary"> -->
         Guardar
       </button>
     </div>
   </div>
 
 </form>
+
+<pre>
+  {{ usuario | json }}
+</pre>

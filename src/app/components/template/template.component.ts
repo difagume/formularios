@@ -11,8 +11,26 @@ export class TemplateComponent {
   public usuario: Object = {
     nombre: null,
     apellido: null,
-    correo: null
+    correo: null,
+    pais: '',
+    genero: 'Hombre',
+    acepta: false
   };
+
+  paises = [{
+    codigo: 'CRI',
+    nombre: 'Costa Rica'
+  },
+  {
+    codigo: 'ESP',
+    nombre: 'España'
+  },
+  {
+    codigo: 'EC',
+    nombre: 'Ecuador'
+  }];
+
+  generos: String[] = ['Hombre', 'Mujer', 'Sin definir'];
 
   constructor() { }
 
