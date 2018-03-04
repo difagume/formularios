@@ -3,7 +3,7 @@
   <small>template</small>
 </h4>
 <hr>
-<form>
+<form (ngSubmit)="guardar()">
 
   <div>
 
@@ -11,7 +11,7 @@
       <label class="col-2 col-form-label">Nombre</label>
       <div class="col-8">
 
-        <input class="form-control" type="text" placeholder="Nombre">
+        <input class="form-control" type="text" placeholder="Nombre" ngModel name="nombre" required minlength="5">
       </div>
     </div>
 
@@ -19,7 +19,7 @@
       <label class="col-2 col-form-label">Apellido</label>
       <div class="col-8">
 
-        <input class="form-control" type="text" placeholder="Apellido">
+        <input class="form-control" type="text" placeholder="Apellido" ngModel name="apellido" required>
       </div>
     </div>
 
@@ -29,7 +29,7 @@
     <label class="col-2 col-form-label">Correo</label>
     <div class="col-md-8">
 
-      <input class="form-control" type="email" placeholder="Correo electrónico">
+      <input class="form-control" type="email" placeholder="Correo electrónico" ngModel name="correo" required>
     </div>
   </div>
 
