@@ -54,6 +54,27 @@ export class DataComponent {
       Validators.required, this.noIgual.bind(this.forma)
     ]);
 
+    // Detectar cambios en los valores o estado del formulario
+    /* this.forma.valueChanges.subscribe(
+      data => {
+        console.log(data);
+      }
+    ); */
+
+    // Detectar cambios en los valores o estado de un control
+    this.forma.controls['username'].valueChanges.subscribe(
+      data => {
+        console.log('username: ', data);
+      }
+    );
+
+    // Detectar cambios ne el estatus del control
+    this.forma.controls['username'].statusChanges.subscribe(
+      data => {
+        console.log('username status: ', data);
+      }
+    );
+
     // Para cargar la información al formulario
     // this.forma.setValue(this.usuario);
 
