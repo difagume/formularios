@@ -32,7 +32,7 @@ export class DataComponent {
       'nombrecompleto': new FormGroup({
 
         'nombre': new FormControl('', [Validators.required, Validators.minLength(3)]),
-        'apellido': new FormControl('', Validators.required)
+        'apellido': new FormControl('', [Validators.required, this.noHerrera])
 
       }),
 
@@ -40,8 +40,15 @@ export class DataComponent {
 
       'pasatiempos': new FormArray([
         new FormControl('correr', Validators.required)
-      ])
+      ]),
+
+      'password1': new FormControl('', Validators.required),
+      'password2': new FormControl()
     });
+
+    this.forma.controls['password2'].setValidators([
+      Validators.required, this.noIgual.bind(this.forma)
+    ]);
 
     // Para cargar la información al formulario
     // this.forma.setValue(this.usuario);
@@ -55,7 +62,7 @@ export class DataComponent {
     // Para resetear los campos (regresarlos al estado ng-pristine)
 
     // Opción 1
-    this.forma.reset();
+    // this.forma.reset();
 
     // Opción 2
     /* this.forma.reset(
@@ -79,6 +86,25 @@ export class DataComponent {
     (<FormArray>this.forma.controls['pasatiempos']).push(
       new FormControl('', Validators.required)
     );
+  }
+
+  noHerrera(control: FormControl): { [s: string]: boolean } {
+    if (control.value === 'herrera') {
+      return {
+        noherrera: true
+      };
+    }
+    return null;
+  }
+
+  noIgual(control: FormControl): { [s: string]: boolean } {
+    const forma: any = this;
+    if (control.value !== forma.controls['password1'].value) {
+      return {
+        noiguales: true
+      };
+    }
+    return null;
   }
 
 }
