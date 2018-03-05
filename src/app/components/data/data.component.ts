@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 // Para trabajar con formularios  y validaciones desde el data
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
 
 
 @Component({
@@ -18,8 +19,8 @@ export class DataComponent {
       nombre: 'diego',
       apellido: 'guzman'
     },
-    correo: 'difagume@gmail.com'//,
-    //pasatiempos: ['correr', 'dormir', 'comer']
+    correo: 'difagume@gmail.com'// ,
+    // pasatiempos: ['correr', 'dormir', 'comer']
   };
 
   constructor() {
@@ -41,6 +42,9 @@ export class DataComponent {
       'pasatiempos': new FormArray([
         new FormControl('correr', Validators.required)
       ]),
+
+      // Validador asíncrono del username
+      'username': new FormControl('', Validators.required, this.existeUsername),
 
       'password1': new FormControl('', Validators.required),
       'password2': new FormControl()
@@ -105,6 +109,23 @@ export class DataComponent {
       };
     }
     return null;
+  }
+
+  existeUsername(control: FormControl): Promise<any> | Observable<any> {
+
+    const promesa = new Promise(
+      (resolve, reject) => {
+        setTimeout(() => {
+
+          if (control.value === 'difagume') {
+            resolve({ existe: true });
+          } else { resolve(null); }
+
+        }, 2000);
+      }
+    );
+    return promesa;
+
   }
 
 }
